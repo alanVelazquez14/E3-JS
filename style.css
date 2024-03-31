@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Poppins", sans-serif;
+    background: #0d0d0d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px;
+    gap: 50px;
+}
+
+.form_container{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.form_field{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 55px;
+}
+
+.form_field_input{
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    background-color: #252525;
+    color: #fff;
+}
+
+.btn_send{
+    font-family: "Poppins", sans-serif;
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+.btn_send:hover {
+    background-color: #35353a;
+  }
+  
+
+.container{
+    display: flex;
+    flex-direction: column;
+    background-color: #252525;
+    padding: 25px;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.container h4{
+    font-size: 25px;
+}
+
+.container_info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container img{
+    width: 250px;
+    border-radius: 5px;
+
+}
+
+
+  /* Error / Success */
+.form_field.error input {
+    border: 1px solid #dc3545;
+}
+  
+.form_field small {
+    color: #dc3545;
+    max-width: 350px;
+    text-align: center;
+    display: none;
+}
+     
+
+.form_field.success input {
+    border: 1px solid #28a745;
+}
+  
+#form__error {
+    color: #dc3545;
+    font-size: 1rem;
+    margin: 8px 0px;
+    max-width: 350px;
+    text-align: center;
+}
