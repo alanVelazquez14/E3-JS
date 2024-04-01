@@ -54,53 +54,30 @@ const addForm = document.querySelector (".form_container")
 const card = document.querySelector(".container")
 
 
-//Funcion para validar que el campo no este vacio
-const isEmpty = (input) => { 
-  return !input.value.length;
-}
-
-
-//Funcion para validar que el número ingersado sea entre el 1 y 5.
-const isBetween = (input) => {
-  return input.value >= 1 && input.value <= 5;
-}
-
-//Funcion que arroja el mensaje de error
-const showError = (input, message) => {
-  const formField = input.parentElement;
-  formField.classList.remove("success");
-  formField.classList.add ("error");
-  const error = formField.querySelector ("small");
-  error.style.display ="block";
-  error.textContent = message;
-}
-
-const showSuccess = (input) => {
-  const formField = input.parentElement;
-  formField.classList.remove ('error');
-  formField.classList.add ('success');
-  const error = formField.querySelector ('small');
-  error.textContent = '';
-}
-
-//Funcion para validar el número ingresado
-const checkInput = (input)  => {
-  let valid = false;
-
-  if(isEmpty(input)){
-    showError (input, 'ingrese un número');
-    return;
+// Funcion de error por si no se ingresa ningún número
+const isValid = (input) => {
+  let isValid = true
+  const inputValue = input.value.trim ();
+  if (!inputValue){
+      card.innerHTML =
+      ` 
+      Error: No ingreso ningún número
+      `
+      isValid = false;
   }
 
-  if (!isBetween (input)){
-    showError (input, `Debe ingresar un numero entre 1 y 5` );
-    return;
-  }
-  
-  showSuccess (input);
-  valid = true;
-  return valid;
+  return isValid
 }
+
+
+//Funcion de error cuando ingreso un número que no esta en la lista de pizzas.id
+const errorCard = () => {
+  return ` 
+  El número ingresado no coincide con ninguna pizza del menú.
+  Ingrese un número del 1 al 5.
+  `
+}
+
 
 //Funcion para mostrar las cards
 const createCards = (pizzas) => {
@@ -109,24 +86,43 @@ const createCards = (pizzas) => {
       <img src= ${pizzas.imagen}>
       <div class="container_info">
           <p>Precio</p>
-          <span>${pizzas.precio}</span>
+          <span>$${pizzas.precio}</span>
       </div>
   `
 }
 
+
+//Funcion para guardar en LS
+const saveLocalStorage = (pizza) => {
+  localStorage.setItem('pizzaGuardada', JSON.stringify(pizza));
+}
+
+
+//Función render para mostrar las cards
 const renderCards = (pizzas) => {
-  card.innerHTML = pizzas.map ((pizzas) => createCards(pizzas));
+  const numberId = Number(inputNumber.value);
+  const pizzaEncontrada = pizzas.find (pizza => pizza.id === numberId)
+  if (pizzaEncontrada){
+    card.innerHTML = createCards(pizzaEncontrada);
+    saveLocalStorage(pizzaEncontrada);
+    return;
+  }
+  if (numberId > 5){
+    card.innerHTML = errorCard()
+    return;
+  }
 }
 
 
 const addCard = (e) => {
   e.preventDefault ();
+  isValid (inputNumber);
   renderCards (pizzas);
 }
 
+
 const init = () => {
-  addForm.addEventListener('submit', addCard)
-  inputNumber.addEventListener ('input', () => checkInput (inputNumber))
+  addForm.addEventListener('submit', addCard);
 }
 
 init ();
