@@ -54,6 +54,12 @@ const addForm = document.querySelector (".form_container")
 const card = document.querySelector(".container")
 
 
+//Funcion para validar que el campo no este vacio
+const isEmpty = (input) => { 
+  return !input.value.length;
+}
+
+
 //Funcion para validar que el número ingersado sea entre el 1 y 5.
 const isBetween = (input) => {
   return input.value >= 1 && input.value <= 5;
@@ -80,10 +86,17 @@ const showSuccess = (input) => {
 //Funcion para validar el número ingresado
 const checkInput = (input)  => {
   let valid = false;
+
+  if(isEmpty(input)){
+    showError (input, 'ingrese un número');
+    return;
+  }
+
   if (!isBetween (input)){
     showError (input, `Debe ingresar un numero entre 1 y 5` );
     return;
   }
+  
   showSuccess (input);
   valid = true;
   return valid;
@@ -102,7 +115,7 @@ const createCards = (pizzas) => {
 }
 
 const renderCards = (pizzas) => {
-  card.innerHTML = pizzas.map ((pizzas) => {createCards(pizzas)})
+  card.innerHTML = pizzas.map ((pizzas) => createCards(pizzas));
 }
 
 
