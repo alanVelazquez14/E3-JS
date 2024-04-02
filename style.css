@@ -78,6 +78,10 @@ body{
 
 }
 
+.hidden{
+    visibility: hidden;
+}
+
 
   /* Error / Success */
 .form_field.error input {

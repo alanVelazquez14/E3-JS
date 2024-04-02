@@ -53,6 +53,23 @@ const inputNumber = document.getElementById ("input-number")
 const addForm = document.querySelector (".form_container")
 const card = document.querySelector(".container")
 
+let pizzaEncontrada = JSON.parse(localStorage.getItem('pizzaGuardada')) || null;
+
+//Funcion para guardar en LS
+const saveLocalStorage = (pizza) => {
+  localStorage.setItem('pizzaGuardada', JSON.stringify(pizza));
+}
+
+
+//Funcion para ocultar el div al inicio
+// const divHidden = () => {
+//   if (!inputNumber){
+//     card.classList.add ('hidden')
+//     return
+//   }
+//   card.classList.remove ('hidden')
+// }
+
 
 // Funcion de error por si no se ingresa ningún número
 const isValid = (input) => {
@@ -92,25 +109,21 @@ const createCards = (pizzas) => {
 }
 
 
-//Funcion para guardar en LS
-const saveLocalStorage = (pizza) => {
-  localStorage.setItem('pizzaGuardada', JSON.stringify(pizza));
-}
 
-
-//Función render para mostrar las cards
+// Función render para mostrar las cards
 const renderCards = (pizzas) => {
   const numberId = Number(inputNumber.value);
-  const pizzaEncontrada = pizzas.find (pizza => pizza.id === numberId)
+  pizzaEncontrada = pizzas.find (pizza => pizza.id === numberId);
+
   if (pizzaEncontrada){
     card.innerHTML = createCards(pizzaEncontrada);
     saveLocalStorage(pizzaEncontrada);
     return;
   }
-  if (numberId > 5){
+  if (numberId > 5 ){
     card.innerHTML = errorCard()
     return;
-  }
+  }  
 }
 
 
@@ -123,6 +136,7 @@ const addCard = (e) => {
 
 const init = () => {
   addForm.addEventListener('submit', addCard);
+  // document.addEventListener ('DOMContentLoaded', divHidden)
 }
 
 init ();
