@@ -53,7 +53,7 @@ const inputNumber = document.getElementById ("input-number")
 const addForm = document.querySelector (".form_container")
 const card = document.querySelector(".container")
 
-let pizzaEncontrada = JSON.parse(localStorage.getItem('pizzaGuardada')) || null;
+let pizzaEncontrada = JSON.parse(localStorage.getItem('pizzaGuardada')) || [];
 
 //Funcion para guardar en LS
 const saveLocalStorage = (pizza) => {
